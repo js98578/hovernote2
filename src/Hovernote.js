@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import React from 'react';
-import {Login} from "./Login";
-import {Notes} from "./Notes";
+import {Login} from "./components/Login";
+import {Notes} from "./components/Notes";
 
 export const Hovernote = () => {
   return (
