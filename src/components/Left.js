@@ -1,5 +1,4 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,17 +14,20 @@ const useStyles = makeStyles(theme => {
   console.log(theme);
   return ({
     list: {
-      //backgroundColor: 'black',
-      //color: 'white',
+      // backgroundColor: 'black',
+      // color: 'white',
     },
-    div: {
-      //backgroundColor: 'black',
-      //height: '100%',
+    divSearch: {
+      // backgroundColor: 'black',
+      // height: '100%',
+      padding: '5px',
     },
-    root: {
+    divLeft: {},
+    paperSearch: {
       padding: '2px 4px',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'center'
+      ,
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -45,26 +47,28 @@ export const Left = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <div className={classes.div}>
-        <Paper className={classes.root}>
-          <IconButton className={classes.iconButton} aria-label="menu">
-            <MenuIcon/>
-          </IconButton>
-          <InputBase
-            className={classes.input}
-            placeholder="Search"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-          <IconButton className={classes.iconButton} aria-label="search">
-            <SearchIcon/>
-          </IconButton>
-        </Paper>
+      <div className={classes.divLeft}>
+        <div className={classes.divSearch}>
+          <Paper className={classes.paperSearch}>
+            <IconButton className={classes.iconButton} aria-label="menu">
+              <MenuIcon/>
+            </IconButton>
+            <InputBase
+              className={classes.input}
+              placeholder="Search"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+            <IconButton className={classes.iconButton} aria-label="search">
+              <SearchIcon/>
+            </IconButton>
+          </Paper>
+        </div>
         <List className={classes.list} component="nav" aria-label="main mailbox folders">
           <ListItem button>
-            <ListItemText primary="Inbox" />
+            <ListItemText primary="Inbox"/>
           </ListItem>
           <ListItem button>
-            <ListItemText primary="Drafts" />
+            <ListItemText primary="Drafts"/>
           </ListItem>
         </List>
         <Divider/>
