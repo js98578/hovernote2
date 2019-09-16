@@ -10,6 +10,14 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import NotesIcon from '@material-ui/icons/Notes';
+import NoteIcon from '@material-ui/icons/Note';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
+import FolderIcon from '@material-ui/icons/Folder';
+
 const useStyles = makeStyles(theme => {
   console.log(theme);
   return ({
@@ -48,6 +56,7 @@ export const Left = () => {
   return (
     <React.Fragment>
       <div className={classes.divLeft}>
+
         <div className={classes.divSearch}>
           <Paper className={classes.paperSearch}>
             <IconButton className={classes.iconButton} aria-label="menu">
@@ -56,27 +65,55 @@ export const Left = () => {
             <InputBase
               className={classes.input}
               placeholder="Search"
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{'aria-label': 'search'}}
             />
             <IconButton className={classes.iconButton} aria-label="search">
               <SearchIcon/>
             </IconButton>
           </Paper>
         </div>
+
         <List className={classes.list} component="nav" aria-label="main mailbox folders">
           <ListItem button>
-            <ListItemText primary="Inbox"/>
+            <ListItemIcon>
+              <NoteAddIcon/>
+            </ListItemIcon>
+            <ListItemText primary="New note"/>
           </ListItem>
           <ListItem button>
+            <ListItemIcon>
+              <CreateNewFolderIcon/>
+            </ListItemIcon>
+            <ListItemText primary="New stack"/>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <NotesIcon/>
+            </ListItemIcon>
+            <ListItemText primary="All notes"/>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <NoteIcon/>
+            </ListItemIcon>
             <ListItemText primary="Drafts"/>
           </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DeleteIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Trash"/>
+          </ListItem>
         </List>
+
         <Divider/>
+
         <List className={classes.list} component="nav" aria-label="secondary mailbox folders">
           <ListItem button>
             <ListItemText primary="Trash"/>
           </ListItem>
         </List>
+
       </div>
     </React.Fragment>
   );
