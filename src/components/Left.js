@@ -53,6 +53,9 @@ const useStyles = makeStyles(theme => {
 
 export const Left = () => {
   const classes = useStyles();
+
+
+
   return (
     <React.Fragment>
       <div className={classes.divLeft}>

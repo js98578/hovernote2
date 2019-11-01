@@ -20,6 +20,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    "react-hooks"
   ],
   rules: {
     "max-len": [1, { "code": 140 }],
@@ -33,5 +34,7 @@ module.exports = {
     "import/extensions": "off",
     "react/jsx-boolean-value": "off",
     "react/no-array-index-key": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
 };
