@@ -1,11 +1,9 @@
-
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import { login } from '../services/loginService';
-import { FragmentWithErrorHandling } from './FragmentWithErrorHandlingHOC';
-import { FragmentWithLoading } from './FragmentWithLoadingHOC';
+import { Status } from './Status';
 
 const useStyles = makeStyles((theme) => ({
   progress: {
@@ -36,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: '150%',
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   }
 }));
 
@@ -46,6 +49,8 @@ export const Login = () => {
     password: '',
   });
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [infoSnackbarOpen, setInfoSnackbarOpen] = useState(false);
+  const [infoSnackbarMessage, setInfoSnackbarMessage] = useState(null)
   const [errorSnackBarMessage, setErrorSnackbarMessage] = useState(null);
   const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
 
@@ -56,8 +61,18 @@ export const Login = () => {
     setErrorSnackbarOpen(false);
   };
 
+  const handleInfoSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setInfoSnackbarOpen(false);
+  }
+
   const handleChange = (name) => (event) => {
-    setUserValues({ ...userValues, [name]: event.target.value });
+    setUserValues({
+      ...userValues,
+      [name]: event.target.value
+    });
   };
 
   const handleLogin = async () => {
@@ -72,35 +87,48 @@ export const Login = () => {
   };
 
   return (
-    <FragmentWithErrorHandling showError={errorSnackbarOpen} handleClose={handleErrorSnackbarClose} message={errorSnackBarMessage}>
-      <FragmentWithLoading showLoading={loadingStatus}>
-        <div className={classes.loginForm}>
-          <h1 className={classes.title}>HOVERNOTE</h1>
-          <TextField
-            id="outlined-name"
-            label="Email"
-            className={classes.textField}
-            value={userValues.email}
-            onChange={handleChange('email')}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-name"
-            label="Password"
-            className={classes.textField}
-            value={userValues.password}
-            onChange={handleChange('password')}
-            margin="normal"
-            variant="outlined"
-          />
+    <Status
+      errorSnackbarOpen={errorSnackbarOpen}
+      handleErrorSnackbarClose={handleErrorSnackbarClose}
+      errorSnackbarMessage={errorSnackBarMessage}
+      infoSnackbarOpen={infoSnackbarOpen}
+      handleInfoSnackbarClose={handleInfoSnackbarClose}
+      infoSnackbarMessage={infoSnackbarMessage}
+      loadingStatus={loadingStatus}
+    >
+      <div className={classes.loginForm}>
+        <h1 className={classes.title}>HOVERNOTE</h1>
+        <TextField
+          id="outlined-email"
+          label="Email"
+          className={classes.textField}
+          value={userValues.email}
+          onChange={handleChange('email')}
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-password"
+          label="Password"
+          className={classes.textField}
+          value={userValues.password}
+          onChange={handleChange('password')}
+          margin="normal"
+          variant="outlined"
+        />
+        <div className={classes.buttons}>
+          <Button
+            onClick={handleLogin}
+          >
+            Sign up
+          </Button>
           <Button
             onClick={handleLogin}
           >
             Login
           </Button>
         </div>
-      </FragmentWithLoading>
-    </FragmentWithErrorHandling>
+      </div>
+    </Status>
   );
 };

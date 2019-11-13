@@ -18,10 +18,10 @@ const withLoading = (WrappedComponent) => ({ showLoading, children }) => {
     <WrappedComponent>
       <div className={classes.root}>
         {showLoading && <LinearProgress />}
-        {children}
       </div>
+      {children}
     </WrappedComponent>
   );
 };
 
-export const FragmentWithLoading = withLoading(({children}) => <>{children}</>)
+export const FragmentWithLoading = withLoading(({ children }) => <>{children}</>);

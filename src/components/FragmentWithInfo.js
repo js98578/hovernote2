@@ -1,16 +1,16 @@
 import React from 'react';
 import { SnackbarWrapper } from './Snackbar';
 
-const withErrorHandling = (WrappedComponent) => ({
-  showError, message, handleClose, children
+const withInfo = (WrappedComponent) => ({
+  showInfo, message, handleClose, children
 }) => (
   <WrappedComponent>
-    {showError && (
+    {showInfo && (
       <SnackbarWrapper
         message={message}
-        vertical="top"
+        vertical="bottom"
         horizontal="right"
-        show={showError}
+        show={showInfo}
         handleClose={handleClose}
       />
     )}
@@ -18,4 +18,4 @@ const withErrorHandling = (WrappedComponent) => ({
   </WrappedComponent>
 );
 
-export const FragmentWithErrorHandling = withErrorHandling(({ children }) => <>{children}</>);
+export const FragmentWithInfo = withInfo(({ children }) => <>{children}</>);
