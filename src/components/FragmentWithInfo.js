@@ -9,7 +9,7 @@ const withInfo = (WrappedComponent) => ({
       <SnackbarWrapper
         message={message}
         vertical="bottom"
-        horizontal="right"
+        horizontal="left"
         show={showInfo}
         handleClose={handleClose}
       />

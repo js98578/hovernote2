@@ -8,8 +8,8 @@ const withErrorHandling = (WrappedComponent) => ({
     {showError && (
       <SnackbarWrapper
         message={message}
-        vertical="top"
-        horizontal="right"
+        vertical="bottom"
+        horizontal="left"
         show={showError}
         handleClose={handleClose}
       />
