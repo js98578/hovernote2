@@ -4,7 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './styles/tailwind.css';
 
-require('dotenv').config()
+require('dotenv').config();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

@@ -1,26 +1,27 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
+import { Fade } from '@material-ui/core';
 import { login } from '../services/loginService';
 import { StatusContext } from '../contexts/StatusContext';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   progress: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(2)
   },
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   textField: {
     width: 300
   },
   dense: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(2)
   },
   menu: {
-    width: 200,
+    width: 200
   },
   loginForm: {
     display: 'flex',
@@ -33,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   title: {
-    fontSize: '150%',
+    fontSize: '150%'
   },
   buttons: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   }
 }));
 
@@ -46,9 +47,16 @@ export const Login = () => {
   const classes = useStyles();
   const [userValues, setUserValues] = useState({
     email: '',
-    password: '',
+    password: ''
   });
-  const { setLoadingStatus, setErrorSnackbarMessage, setErrorSnackbarOpen } = useContext(StatusContext);
+  const [fadeIn, setFadeIn] = useState(false);
+  const { setLoadingStatus, setErrorSnackbarMessage, setErrorSnackbarOpen } = useContext(
+    StatusContext
+  );
+
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
 
   const handleLogin = async () => {
     setLoadingStatus(true);
@@ -61,7 +69,7 @@ export const Login = () => {
     setLoadingStatus(false);
   };
 
-  const handleChange = (name) => (event) => {
+  const handleChange = name => event => {
     setUserValues({
       ...userValues,
       [name]: event.target.value
@@ -69,38 +77,34 @@ export const Login = () => {
   };
 
   return (
-    <div className={classes.loginForm}>
-      <h1 className={classes.title}>HOVERNOTE</h1>
-      <TextField
-        id="outlined-email"
-        label="Email"
-        className={classes.textField}
-        value={userValues.email}
-        onChange={handleChange('email')}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        id="outlined-password"
-        label="Password"
-        className={classes.textField}
-        value={userValues.password}
-        onChange={handleChange('password')}
-        margin="normal"
-        variant="outlined"
-      />
-      <div className={classes.buttons}>
-        <Button
-          onClick={handleLogin}
-        >
-            Sign up
-        </Button>
-        <Button
-          onClick={handleLogin}
-        >
-            Login
-        </Button>
-      </div>
+    <div className="flex justify-center bg-gray-200">
+      <Fade in={fadeIn}>
+        <div className={classes.loginForm}>
+          <h1 className={classes.title}>HOVERNOTE</h1>
+          <TextField
+            id="outlined-email"
+            label="Email"
+            className={classes.textField}
+            value={userValues.email}
+            onChange={handleChange('email')}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-password"
+            label="Password"
+            className={classes.textField}
+            value={userValues.password}
+            onChange={handleChange('password')}
+            margin="normal"
+            variant="outlined"
+          />
+          <div className={classes.buttons}>
+            <Button onClick={handleLogin}>Sign up</Button>
+            <Button onClick={handleLogin}>Login</Button>
+          </div>
+        </div>
+      </Fade>
     </div>
   );
 };

@@ -2,39 +2,35 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true,
+    node: true
   },
-  extends: [
-    'airbnb',
-  ],
+  extends: ['airbnb', 'prettier'],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: 2018,
-    sourceType: 'module',
+    sourceType: 'module'
   },
-  plugins: [
-    'react',
-    "react-hooks"
-  ],
+  plugins: ['react', 'react-hooks', 'prettier'],
   rules: {
-    "max-len": [1, { "code": 140 }],
+    'max-len': [1, { code: 140 }],
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',
     'comma-dangle': 'off',
-    "indent": ["error", 2],
-    "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": "off",
-    "import/extensions": "off",
-    "react/jsx-boolean-value": "off",
-    "react/no-array-index-key": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
-  },
+    indent: ['error', 2],
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/extensions': 'off',
+    'react/jsx-boolean-value': 'off',
+    'react/no-array-index-key': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'prettier/prettier': ['error']
+  }
 };

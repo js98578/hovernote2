@@ -1,5 +1,5 @@
 import React from 'react';
-import {Hovernote} from "./Hovernote";
+import { Hovernote } from './Hovernote';
 import { StatusProvider } from './contexts/StatusContext';
 import { Status } from './components/Status';
 
