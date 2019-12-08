@@ -2,8 +2,12 @@ import React, { useContext, useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Fade } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 import { login } from '../services/loginService';
 import { StatusContext } from '../contexts/StatusContext';
+import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
+import { fade } from '@material-ui/core/styles';
 
 export const Login = () => {
   const [userValues, setUserValues] = useState({
@@ -11,6 +15,7 @@ export const Login = () => {
     password: ''
   });
   const [fadeIn, setFadeIn] = useState(false);
+  const [isSignUpForm, setIsSignUpForm] = useState(false);
   const { setLoadingStatus, setErrorSnackbarMessage, setErrorSnackbarOpen } = useContext(
     StatusContext
   );
@@ -30,6 +35,10 @@ export const Login = () => {
     setLoadingStatus(false);
   };
 
+  const handleSignUp = async () => {
+
+  };
+
   const handleChange = name => event => {
     setUserValues({
       ...userValues,
@@ -37,35 +46,33 @@ export const Login = () => {
     });
   };
 
+  const switchMode = () => {
+    console.log('fadeIn', fadeIn, 'isSignup', isSignUpForm);
+    setFadeIn(true);
+    setIsSignUpForm(!isSignUpForm);
+  };
+
   return (
     <div className="w-screen h-screen flex items-center justify-center">
-      <Fade in={fadeIn}>
-        <div className="flex flex-col w-500">
-          <h1 className="flex justify-center text-4xl">HOVERNOTE</h1>
-          <TextField
-            id="outlined-email"
-            label="Email"
-            className="w-300"
-            value={userValues.email}
-            onChange={handleChange('email')}
-            margin="normal"
-            variant="outlined"
+      {isSignUpForm ? (
+          <SignUpForm
+            userValues={userValues}
+            handleChange={handleChange}
+            handleSignup={handleSignUp}
+            switchMode={switchMode}
+            fadeIn={fadeIn}
           />
-          <TextField
-            id="outlined-password"
-            label="Password"
-            className="w-300"
-            value={userValues.password}
-            onChange={handleChange('password')}
-            margin="normal"
-            variant="outlined"
+        ) :
+        (
+          <LoginForm
+            userValues={userValues}
+            handleChange={handleChange}
+            handleLogin={handleLogin}
+            switchMode={switchMode}
+            fadeIn={fadeIn}
           />
-          <div className="flex justify-between">
-            <Button onClick={handleLogin}>Sign up</Button>
-            <Button onClick={handleLogin}>Login</Button>
-          </div>
-        </div>
-      </Fade>
+        )
+      }
     </div>
   );
 };

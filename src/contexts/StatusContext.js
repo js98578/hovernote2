@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export const StatusContext = React.createContext();
 
-export const StatusProvider = (props) => {
+export const StatusProvider = props => {
   const { children } = props;
 
   const [loadingStatus, setLoadingStatus] = useState(false);

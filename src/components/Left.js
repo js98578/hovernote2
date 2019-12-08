@@ -58,7 +58,7 @@ export const Left = () => {
 
   return (
     <React.Fragment>
-      <div className={classes.divLeft}>
+      <div className="border-r-1 border-gray-600">
 
         <div className={classes.divSearch}>
           <Paper className={classes.paperSearch}>
@@ -113,7 +113,10 @@ export const Left = () => {
 
         <List className={classes.list} component="nav" aria-label="secondary mailbox folders">
           <ListItem button>
-            <ListItemText primary="Trash"/>
+            <ListItemText primary="School"/>
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Work"/>
           </ListItem>
         </List>
 
