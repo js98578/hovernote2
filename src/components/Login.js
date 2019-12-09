@@ -1,24 +1,28 @@
 import React, { useContext, useState, useEffect } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { Fade } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import { login } from '../services/loginService';
+import { login, signUp } from '../services/loginService';
 import { StatusContext } from '../contexts/StatusContext';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
-import { fade } from '@material-ui/core/styles';
 
 export const Login = () => {
-  const [userValues, setUserValues] = useState({
+  const [loginValues, setLoginValues] = useState({
     email: '',
     password: ''
   });
+  const [signUpValues, setSignUpValues] = useState({
+    email: '',
+    password1: '',
+    password2: ''
+  });
   const [fadeIn, setFadeIn] = useState(false);
   const [isSignUpForm, setIsSignUpForm] = useState(false);
-  const { setLoadingStatus, setErrorSnackbarMessage, setErrorSnackbarOpen } = useContext(
-    StatusContext
-  );
+  const {
+    setLoadingStatus,
+    setErrorSnackbarMessage,
+    setErrorSnackbarOpen,
+    setInfoSnackbarOpen,
+    setInfoSnackbarMessage
+  } = useContext(StatusContext);
 
   useEffect(() => {
     setFadeIn(true);
@@ -27,7 +31,7 @@ export const Login = () => {
   const handleLogin = async () => {
     setLoadingStatus(true);
     try {
-      await login(userValues.username, userValues.password);
+      await login(loginValues.username, loginValues.password);
     } catch (e) {
       setErrorSnackbarMessage(e.message);
       setErrorSnackbarOpen(true);
@@ -36,43 +40,68 @@ export const Login = () => {
   };
 
   const handleSignUp = async () => {
+    if (signUpValues.password1 === '' || signUpValues.password2 === '') {
+      setErrorSnackbarMessage(`Empty field`);
+      setErrorSnackbarOpen(true);
+      return;
+    }
 
+    if (signUpValues.password1 !== signUpValues.password2) {
+      setErrorSnackbarMessage(`Passwords don't match`);
+      setErrorSnackbarOpen(true);
+      return;
+    }
+
+    setLoadingStatus(true);
+    try {
+      await signUp(signUpValues.email, signUpValues.password1);
+      setInfoSnackbarMessage('Signed up!');
+      setInfoSnackbarOpen(true);
+    } catch (e) {
+      setErrorSnackbarMessage(e.message);
+      setErrorSnackbarOpen(true);
+    }
+    setLoadingStatus(false);
   };
 
-  const handleChange = name => event => {
-    setUserValues({
-      ...userValues,
+  const handleLoginFormChange = name => event => {
+    setLoginValues({
+      ...loginValues,
+      [name]: event.target.value
+    });
+  };
+
+  const handleSignUpFormChange = name => event => {
+    setSignUpValues({
+      ...signUpValues,
       [name]: event.target.value
     });
   };
 
   const switchMode = () => {
-    console.log('fadeIn', fadeIn, 'isSignup', isSignUpForm);
     setFadeIn(true);
     setIsSignUpForm(!isSignUpForm);
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
+    <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
       {isSignUpForm ? (
-          <SignUpForm
-            userValues={userValues}
-            handleChange={handleChange}
-            handleSignup={handleSignUp}
-            switchMode={switchMode}
-            fadeIn={fadeIn}
-          />
-        ) :
-        (
-          <LoginForm
-            userValues={userValues}
-            handleChange={handleChange}
-            handleLogin={handleLogin}
-            switchMode={switchMode}
-            fadeIn={fadeIn}
-          />
-        )
-      }
+        <SignUpForm
+          formValues={signUpValues}
+          handleChange={handleLoginFormChange}
+          handleSignUp={handleSignUp}
+          switchMode={switchMode}
+          fadeIn={fadeIn}
+        />
+      ) : (
+        <LoginForm
+          formValues={loginValues}
+          handleChange={handleSignUpFormChange}
+          handleLogin={handleLogin}
+          switchMode={switchMode}
+          fadeIn={fadeIn}
+        />
+      )}
     </div>
   );
 };
