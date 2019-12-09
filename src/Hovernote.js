@@ -1,13 +1,17 @@
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
-import {Login} from "./components/Login";
-import {Notes} from "./components/Notes";
+import Login from './components/Login';
+import { Notes } from './components/Notes';
+import { token } from './services/loginService';
 
 export const Hovernote = () => {
   return (
-    <Router>
-      <Route path="/login/" component={Login} />
-      <Route path="/notes/" component={Notes} />
-    </Router>
-  )
-}
+    <Switch>
+      <Route exact path="/">
+        {!token ? <Login /> : <Redirect to="/notes/" />}
+      </Route>
+      <Route path="/notes/">{!token ? <Redirect to="/login/" /> : <Notes />}</Route>
+      <Route path="/login/" render={() => (!token ? <Login /> : <Redirect to="/notes/" />)} />
+    </Switch>
+  );
+};

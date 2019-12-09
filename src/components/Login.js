@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { withRouter } from "react-router-dom";
 import { login, signUp } from '../services/loginService';
 import { StatusContext } from '../contexts/StatusContext';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 
-export const Login = () => {
+const Login = props => {
   const [loginValues, setLoginValues] = useState({
     email: '',
     password: ''
@@ -31,17 +32,22 @@ export const Login = () => {
   const handleLogin = async () => {
     setLoadingStatus(true);
     try {
-      await login(loginValues.username, loginValues.password);
+      await login(loginValues.email, loginValues.password);
     } catch (e) {
       setErrorSnackbarMessage(e.message);
       setErrorSnackbarOpen(true);
     }
     setLoadingStatus(false);
+    props.history.push('/');
   };
 
   const handleSignUp = async () => {
-    if (signUpValues.password1 === '' || signUpValues.password2 === '') {
-      setErrorSnackbarMessage(`Empty field`);
+    if (
+      signUpValues.password1 === '' ||
+      signUpValues.password2 === '' ||
+      signUpValues.email === ''
+    ) {
+      setErrorSnackbarMessage(`An empty field`);
       setErrorSnackbarOpen(true);
       return;
     }
@@ -57,6 +63,8 @@ export const Login = () => {
       await signUp(signUpValues.email, signUpValues.password1);
       setInfoSnackbarMessage('Signed up!');
       setInfoSnackbarOpen(true);
+      switchMode();
+      clearSignUpForm();
     } catch (e) {
       setErrorSnackbarMessage(e.message);
       setErrorSnackbarOpen(true);
@@ -78,17 +86,33 @@ export const Login = () => {
     });
   };
 
-  const switchMode = () => {
-    setFadeIn(true);
-    setIsSignUpForm(!isSignUpForm);
+  const clearSignUpForm = () => {
+    setSignUpValues({
+      email: '',
+      password1: '',
+      password2: ''
+    });
   };
 
+  const clearLoginForm = () => {
+    setLoginValues({
+      email: '',
+      password: ''
+    });
+  };
+
+  const switchMode = () => {
+    setFadeIn(true);
+    clearSignUpForm();
+    clearLoginForm();
+    setIsSignUpForm(!isSignUpForm);
+  };
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
       {isSignUpForm ? (
         <SignUpForm
           formValues={signUpValues}
-          handleChange={handleLoginFormChange}
+          handleChange={handleSignUpFormChange}
           handleSignUp={handleSignUp}
           switchMode={switchMode}
           fadeIn={fadeIn}
@@ -96,7 +120,7 @@ export const Login = () => {
       ) : (
         <LoginForm
           formValues={loginValues}
-          handleChange={handleSignUpFormChange}
+          handleChange={handleLoginFormChange}
           handleLogin={handleLogin}
           switchMode={switchMode}
           fadeIn={fadeIn}
@@ -105,3 +129,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default withRouter(Login);

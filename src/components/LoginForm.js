@@ -12,7 +12,7 @@ const LoginForm = props => {
       <Paper className="flex flex-col p-8 min-w-0" elevation={5}>
         <h1 className="mb-4 justify-center text-4xl text-gray-400">LOGIN</h1>
         <TextField
-          id="outlined-email"
+          id="outlined-email-login"
           label="Email"
           className="min-w-300"
           value={formValues.email}
@@ -28,6 +28,7 @@ const LoginForm = props => {
           onChange={handleChange('password')}
           margin="normal"
           variant="outlined"
+          type="password"
         />
         <div className="mt-6 flex justify-between">
           <Button onClick={switchMode}>Sign up</Button>

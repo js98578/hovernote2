@@ -8,25 +8,29 @@ export const login = async (username, password) => {
       username,
       password
     });
-    console.log(result)
-    setTokenToLocalStorage();
+    setTokenToLocalStorage(result.data.token);
   } catch (err) {
-    throw new Error('Login failed');
+    throw new Error(err);
   }
 };
 
 export const signUp = async (username, password) => {
   try {
-    const result = await axios.post(`${apiUrl}user/`, {
+    await axios.post(`${apiUrl}users/`, {
       username,
       password
     });
-    console.log(result);
   } catch (err) {
-    throw new Error('Sign up failed');
+    throw new Error(err);
   }
 };
 
 export const setTokenToLocalStorage = token => {
   localStorage.setItem('token', JSON.stringify(token));
 };
+
+export const getTokenFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem('token'));
+};
+
+export const token = JSON.parse(localStorage.getItem('token'));
