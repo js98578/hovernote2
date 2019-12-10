@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { login, signUp } from '../services/loginService';
 import { StatusContext } from '../contexts/StatusContext';
 import LoginForm from './LoginForm';
@@ -30,6 +30,12 @@ const Login = props => {
   }, []);
 
   const handleLogin = async () => {
+    if (loginValues.password === '' || loginValues.email === '') {
+      setErrorSnackbarMessage(`An empty field`);
+      setErrorSnackbarOpen(true);
+      return;
+    }
+
     setLoadingStatus(true);
     try {
       await login(loginValues.email, loginValues.password);
@@ -38,7 +44,7 @@ const Login = props => {
       setErrorSnackbarOpen(true);
     }
     setLoadingStatus(false);
-    props.history.push('/');
+    props.history.push('/notes/');
   };
 
   const handleSignUp = async () => {
