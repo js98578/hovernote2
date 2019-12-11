@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Space from 'react-spaces';
-import { Left } from './Left';
+import Left from './Left';
 
 export const Notes = () => {
   return (

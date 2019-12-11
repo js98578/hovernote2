@@ -4,8 +4,11 @@ import { login, signUp } from '../services/loginService';
 import { StatusContext } from '../contexts/StatusContext';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = props => {
+  const { setIsAuthenticated } = useContext(AuthContext);
+
   const [loginValues, setLoginValues] = useState({
     email: '',
     password: ''
@@ -44,6 +47,7 @@ const Login = props => {
       setErrorSnackbarOpen(true);
     }
     setLoadingStatus(false);
+    setIsAuthenticated(true);
     props.history.push('/notes/');
   };
 

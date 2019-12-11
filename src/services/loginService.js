@@ -25,12 +25,20 @@ export const signUp = async (username, password) => {
   }
 };
 
+export const logout = async () => {
+  removeTokenFromLocalStorage();
+};
+
 export const setTokenToLocalStorage = token => {
   localStorage.setItem('token', JSON.stringify(token));
 };
 
 export const getTokenFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem('token'));
+};
+
+export const removeTokenFromLocalStorage = () => {
+  localStorage.clear('token');
 };
 
 export const token = JSON.parse(localStorage.getItem('token'));
