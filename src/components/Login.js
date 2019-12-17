@@ -42,13 +42,13 @@ const Login = props => {
     setLoadingStatus(true);
     try {
       await login(loginValues.email, loginValues.password);
+      setIsAuthenticated(true);
+      props.history.push('/notes/');
     } catch (e) {
       setErrorSnackbarMessage(e.message);
       setErrorSnackbarOpen(true);
     }
     setLoadingStatus(false);
-    setIsAuthenticated(true);
-    props.history.push('/notes/');
   };
 
   const handleSignUp = async () => {

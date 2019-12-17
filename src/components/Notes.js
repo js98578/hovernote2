@@ -4,7 +4,7 @@ import Left from './Left';
 
 export const Notes = () => {
   return (
-    <React.Fragment>
+    <>
       <Space.ViewPort>
         <Space.LeftResizable scrollable={true} size="15%">
           <Left />
@@ -16,6 +16,6 @@ export const Notes = () => {
           <div className="border-l border-gray-200 h-screen"></div>
         </Space.Right>
       </Space.ViewPort>
-    </React.Fragment>
+    </>
   );
 };
