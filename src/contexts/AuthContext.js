@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import Axios from 'axios';
 import { token } from '../services/loginService';
 
 export const AuthContext = React.createContext();
@@ -12,20 +13,33 @@ export const AuthProvider = props => {
     return token;
   };
 
+  const authentication = useCallback(
+    authenticate => {
+      setIsAuthenticated(authenticate);
+      if (authenticate) {
+        Axios.defaults.headers.common.Authorization = getTokenFromLocalStorage();
+        return;
+      }
+      Axios.defaults.headers.common.Authorization = null;
+    },
+    [setIsAuthenticated]
+  );
+
   useEffect(() => {
     if (getTokenFromLocalStorage()) {
-      setIsAuthenticated(true);
+      authentication(true);
     } else {
-      setIsAuthenticated(false);
+      authentication(false);
     }
-  }, []);
+  }, [authentication]);
 
   return (
     <AuthContext.Provider
       value={{
         getTokenFromLocalStorage,
         isAuthenticated,
-        setIsAuthenticated
+        setIsAuthenticated,
+        authentication
       }}
     >
       {children}
