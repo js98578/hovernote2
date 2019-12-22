@@ -1,7 +1,8 @@
 import Axios from 'axios';
 
-const apiUrl = process.env.REACT_APP_API_URL;;
+const apiUrl = process.env.REACT_APP_API_URL;
 
-export const getAllNotes = async () => {
-  const notes = await Axios.get(`${apiUrl}notes/get-users-notes/`);
-}
+export const getAllNotes = async id => {
+  const notes = await Axios.get(`${apiUrl}notes/get-users-notes/${id}`);
+  return notes;
+};

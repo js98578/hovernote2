@@ -7,7 +7,7 @@ import SignUpForm from './SignUpForm';
 import { AuthContext } from '../contexts/AuthContext';
 
 const Login = props => {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { authentication } = useContext(AuthContext);
 
   const [loginValues, setLoginValues] = useState({
     email: '',
@@ -40,13 +40,19 @@ const Login = props => {
     }
 
     setLoadingStatus(true);
+    let success = false;
+    let newUserInfo = null;
     try {
-      await login(loginValues.email, loginValues.password);
-      setIsAuthenticated(true);
-      props.history.push('/notes/');
+      newUserInfo = await login(loginValues.email, loginValues.password);
+      success = true;
     } catch (e) {
       setErrorSnackbarMessage(e.message);
       setErrorSnackbarOpen(true);
+    }
+
+    if (success) {
+      authentication(true, newUserInfo);
+      props.history.push('/notes/');
     }
     setLoadingStatus(false);
   };

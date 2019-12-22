@@ -8,7 +8,8 @@ export const login = async (username, password) => {
       username,
       password
     });
-    setTokenToLocalStorage(result.data.token);
+    setUserInfoToLocalStorage(result.data);
+    return result.data;
   } catch (err) {
     throw new Error(err);
   }
@@ -26,7 +27,15 @@ export const signUp = async (username, password) => {
 };
 
 export const logout = async () => {
-  removeTokenFromLocalStorage();
+  removeUserInfoFromLocalStorage();
+};
+
+export const setUserInfoToLocalStorage = info => {
+  localStorage.setItem('user', JSON.stringify(info));
+};
+
+export const getUserInfoFromLocalStorage = () => {
+  JSON.parse(localStorage.getItem('user'));
 };
 
 export const setTokenToLocalStorage = token => {
@@ -34,11 +43,11 @@ export const setTokenToLocalStorage = token => {
 };
 
 export const getTokenFromLocalStorage = () => {
-  return JSON.parse(localStorage.getItem('token'));
+  return JSON.parse(localStorage.getItem('user')).token;
 };
 
-export const removeTokenFromLocalStorage = () => {
-  localStorage.clear('token');
+export const removeUserInfoFromLocalStorage = () => {
+  localStorage.clear('user');
 };
 
-export const token = JSON.parse(localStorage.getItem('token'));
+export const userInfoFromLocalStorage = JSON.parse(localStorage.getItem('user'));

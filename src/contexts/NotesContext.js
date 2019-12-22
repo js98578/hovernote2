@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getAllNotes } from '../services/notesService';
+import { AuthContext } from './AuthContext';
 
 export const NotesContext = React.createContext();
 
@@ -8,10 +9,18 @@ export const NotesProvider = props => {
 
   const [note, setNote] = useState(null);
   const [noteList, setNoteList] = useState([]);
+  const { userInfo } = useContext(AuthContext);
 
   useEffect(() => {
-    setNoteList(getAllNotes());
-  }, []);
+    const getNotes = async () => {
+      try {
+        setNoteList(await getAllNotes(userInfo.id));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getNotes();
+  }, [userInfo]);
 
   return (
     <NotesContext.Provider value={{ note, setNote, noteList, setNoteList }}>

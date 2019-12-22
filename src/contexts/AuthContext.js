@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Axios from 'axios';
-import { token } from '../services/loginService';
+import { userInfoFromLocalStorage } from '../services/loginService';
 
 export const AuthContext = React.createContext();
 
@@ -8,38 +8,39 @@ export const AuthProvider = props => {
   const { children } = props;
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
-  const getTokenFromLocalStorage = () => {
-    return token;
-  };
+  const getUserInfoFromLocalStorage = useCallback(() => {
+    return userInfoFromLocalStorage;
+  }, []);
 
-  const authentication = useCallback(
-    authenticate => {
-      setIsAuthenticated(authenticate);
-      if (authenticate) {
-        Axios.defaults.headers.common.Authorization = getTokenFromLocalStorage();
-        return;
-      }
-      Axios.defaults.headers.common.Authorization = null;
-    },
-    [setIsAuthenticated]
-  );
+  const authentication = useCallback((authenticate, newUserInfo) => {
+    setUserInfo(newUserInfo);
+    setIsAuthenticated(authenticate);
+    if (authenticate) {
+      Axios.defaults.headers.common.Authorization = `bearer ${newUserInfo.token}`;
+      return;
+    }
+    Axios.defaults.headers.common.Authorization = null;
+  }, []);
 
   useEffect(() => {
-    if (getTokenFromLocalStorage()) {
-      authentication(true);
+    if (getUserInfoFromLocalStorage()) {
+      authentication(true, getUserInfoFromLocalStorage());
     } else {
-      authentication(false);
+      authentication(false, getUserInfoFromLocalStorage());
     }
-  }, [authentication]);
+  }, [authentication, getUserInfoFromLocalStorage]);
 
   return (
     <AuthContext.Provider
       value={{
-        getTokenFromLocalStorage,
+        getUserInfoFromLocalStorage,
         isAuthenticated,
         setIsAuthenticated,
-        authentication
+        authentication,
+        userInfo,
+        setUserInfo
       }}
     >
       {children}
