@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Axios from 'axios';
-import { userInfoFromLocalStorage } from '../services/loginService';
+import {
+  userInfoFromLocalStorage,
+  setAuthorizationHeaders,
+  setAuthorizationHeadersToNull
+} from '../services/loginService';
 
 export const AuthContext = React.createContext();
 
@@ -18,10 +21,10 @@ export const AuthProvider = props => {
     setUserInfo(newUserInfo);
     setIsAuthenticated(authenticate);
     if (authenticate) {
-      Axios.defaults.headers.common.Authorization = `bearer ${newUserInfo.token}`;
+      setAuthorizationHeaders(newUserInfo.token);
       return;
     }
-    Axios.defaults.headers.common.Authorization = null;
+    setAuthorizationHeadersToNull();
   }, []);
 
   useEffect(() => {

@@ -8,11 +8,18 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
+import { NotesContext } from '../contexts/NotesContext';
 
 const PrimaryMenu = () => {
+  const { note, setNote, noteList, setNoteList, newNote, setNewNote } = useContext(NotesContext);
   return (
     <List component="nav" aria-label="main mailbox folders">
-      <ListItem button>
+      <ListItem
+        button
+        onClick={() => {
+          setNewNote(true);
+        }}
+      >
         <ListItemIcon>
           <NoteAddIcon />
         </ListItemIcon>

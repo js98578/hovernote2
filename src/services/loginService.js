@@ -1,4 +1,4 @@
-import * as axios from 'axios';
+import Axios, * as axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -28,6 +28,7 @@ export const signUp = async (username, password) => {
 
 export const logout = async () => {
   removeUserInfoFromLocalStorage();
+  setAuthorizationHeadersToNull();
 };
 
 export const setUserInfoToLocalStorage = info => {
@@ -48,6 +49,14 @@ export const getTokenFromLocalStorage = () => {
 
 export const removeUserInfoFromLocalStorage = () => {
   localStorage.clear('user');
+};
+
+export const setAuthorizationHeaders = token => {
+  Axios.defaults.headers.common.Authorization = `bearer ${token}`;
+};
+
+export const setAuthorizationHeadersToNull = () => {
+  Axios.defaults.headers.common.Authorization = null;
 };
 
 export const userInfoFromLocalStorage = JSON.parse(localStorage.getItem('user'));

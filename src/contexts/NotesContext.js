@@ -9,12 +9,16 @@ export const NotesProvider = props => {
 
   const [note, setNote] = useState(null);
   const [noteList, setNoteList] = useState([]);
+  const [noteTitle, setNoteTitle] = useState(null);
+  const [noteContent, setNoteContent] = useState(null);
+  const [newNote, setNewNote] = useState(true);
   const { userInfo } = useContext(AuthContext);
 
   useEffect(() => {
     const getNotes = async () => {
       try {
-        setNoteList(await getAllNotes(userInfo.id));
+        const noteListResponse = await getAllNotes(userInfo.id);
+        setNoteList(noteListResponse);
       } catch (err) {
         console.log(err);
       }
@@ -23,7 +27,20 @@ export const NotesProvider = props => {
   }, [userInfo]);
 
   return (
-    <NotesContext.Provider value={{ note, setNote, noteList, setNoteList }}>
+    <NotesContext.Provider
+      value={{
+        note,
+        setNote,
+        noteList,
+        setNoteList,
+        newNote,
+        setNewNote,
+        noteTitle,
+        setNoteTitle,
+        noteContent,
+        setNoteContent
+      }}
+    >
       {children}
     </NotesContext.Provider>
   );
