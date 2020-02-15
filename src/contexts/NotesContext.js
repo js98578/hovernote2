@@ -7,12 +7,32 @@ export const NotesContext = React.createContext();
 export const NotesProvider = props => {
   const { children } = props;
 
-  const [note, setNote] = useState(null);
+  const [note, setNote] = useState({
+    title: '',
+    content: '',
+    id: '',
+    new: true
+  });
   const [noteList, setNoteList] = useState([]);
-  const [noteTitle, setNoteTitle] = useState(null);
-  const [noteContent, setNoteContent] = useState(null);
-  const [newNote, setNewNote] = useState(true);
   const { userInfo } = useContext(AuthContext);
+
+  const setNoteTitle = title => {
+    setNote({
+      title,
+      content: note.content,
+      id: note.id,
+      new: note.new
+    });
+  };
+
+  const setNoteContent = content => {
+    setNote({
+      title: note.title,
+      content,
+      id: note.id,
+      new: note.new
+    });
+  };
 
   useEffect(() => {
     const getNotes = async () => {
@@ -33,12 +53,8 @@ export const NotesProvider = props => {
         setNote,
         noteList,
         setNoteList,
-        newNote,
-        setNewNote,
-        noteTitle,
         setNoteTitle,
-        noteContent,
-        setNoteContent
+        setNoteContent,
       }}
     >
       {children}
