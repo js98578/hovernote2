@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,7 +11,7 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import { NotesContext } from '../contexts/NotesContext';
 
 const PrimaryMenu = () => {
-  const { note, setNote, noteList, setNoteList, setNoteNew } = useContext(NotesContext);
+  const { setNoteNew } = useContext(NotesContext);
   return (
     <List component="nav" aria-label="main mailbox folders">
       <ListItem

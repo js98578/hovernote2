@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
 
 const NoteList = () => {
-  const { noteList, setNote } = useContext(NotesContext);
+  const { noteList } = useContext(NotesContext);
 
   const notes = useMemo(() => {
     return noteList instanceof Array && noteList.map(note => (

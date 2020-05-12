@@ -2,7 +2,6 @@ import { BrowserRouter as Switch, Route, Redirect } from 'react-router-dom';
 import React, { useContext } from 'react';
 import Login from './components/Login';
 import { Notes } from './components/Notes';
-import { token } from './services/loginService';
 import { AuthContext } from './contexts/AuthContext';
 
 export const Hovernote = () => {

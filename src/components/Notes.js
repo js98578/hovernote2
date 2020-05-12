@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Space from 'react-spaces';
 import Left from './Left';
 import { NotesProvider } from '../contexts/NotesContext';

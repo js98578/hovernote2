@@ -3,18 +3,9 @@ import { NotesContext } from '../contexts/NotesContext';
 import { TextField } from '@material-ui/core';
 
 const Note = () => {
-  const {
-    note,
-    setNote,
-    noteList,
-    setNoteList,
-    newNote,
-    setNewNote,
-    noteTitle,
-    setNoteTitle,
-    noteContent,
-    setNoteContent
-  } = useContext(NotesContext);
+  const { newNote, noteTitle, setNoteTitle, noteContent, setNoteContent } = useContext(
+    NotesContext
+  );
 
   return (
     <div>
