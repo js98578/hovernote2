@@ -8,7 +8,7 @@ const LoginForm = props => {
   const { formValues, handleChange, handleLogin, switchMode, fadeIn } = props;
 
   return (
-    <Fade in={fadeIn} timeout={1000}>
+    <Fade in={fadeIn} timeout={300}>
       <Paper className="flex flex-col p-8 min-w-0" elevation={5}>
         <h1 className="mb-4 justify-center text-4xl text-gray-400">LOGIN</h1>
         <TextField
