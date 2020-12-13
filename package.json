@@ -12,7 +12,8 @@
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
-    "react-spaces": "^0.1.14"
+    "react-spaces": "^0.1.14",
+    "react-transition-group": "^4.4.1"
   },
   "scripts": {
     "build:style": "./node_modules/.bin/tailwind.cmd build src/styles/index.css -o src/styles/tailwind.css",

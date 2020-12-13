@@ -125,6 +125,8 @@ module.exports = {
         800: '#97266d',
         900: '#702459',
       },
+      accentPink: '#FF94B4',
+      accentGreen: '#2CAEAD',
     },
     spacing: {
       px: '1px',
