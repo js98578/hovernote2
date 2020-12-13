@@ -9,9 +9,9 @@ export const Notes = () => {
   return (
     <NotesProvider>
       <Space.ViewPort>
-        <Space.LeftResizable scrollable={true} size="15%">
+        <Space.Left scrollable={true} size="13%">
           <Left />
-        </Space.LeftResizable>
+        </Space.Left>
         <Space.Fill scrollable={true}>
           <div className="border-l border-gray-200 h-screen">
             <NoteList />
