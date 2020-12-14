@@ -14,7 +14,7 @@ const Left = props => {
   };
 
   return (
-    <div className="border-r-1 border-gray-600 p-4 shadow-lg">
+    <div className="border-r-1 border-gray-800 justify-between flex flex-col p-4 shadow-lg">
       <Search />
       <PrimaryMenu />
       <NoteStackList />
@@ -23,7 +23,7 @@ const Left = props => {
         onClick={handleLogout}
       >
         <div className="">
-          <h1 className="px-4 font-sans font-light text-3xl text-green-400 cursor-pointer rounded-full hover:bg-gray-200">Logout</h1>
+          <h1 className="px-4 font-sans font-light text-3xl text-green-400 cursor-pointer rounded-lg hover:bg-gray-200">Logout</h1>
         </div>
       </div>
     </div>

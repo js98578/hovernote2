@@ -1,30 +1,45 @@
 import React, { useContext } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { Transition } from 'react-transition-group';
+import { GoSearch } from "react-icons/go";
+import { useRef } from 'react';
 
 const Search = props => {
+  const [focused, setFocused] = useState(null);
+  const inputRef = useRef(null);
 
-  const duration = 300;
-
-  const defaultStyle = {
-    transition: `opacity ${duration}ms ease-in-out`,
-    opacity: 0,
+  const focusField = () => {
+    inputRef.current.focus();
   }
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const { setIsAuthenticated } = useContext(AuthContext);
-  const handleSearchMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleSearchMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-
   return (
-    <div className="p-2 rounded-lg border-green-500 border">
-      <input></input>
+    <div
+      className={
+        focused
+          ? 'p-2 group rounded-lg border-green-500 cursor-text border flex bg-gray-100 group-hover:bg-gray-200'
+          : 'p-2 group rounded-lg border-green-500 cursor-text border flex group-hover:bg-gray-200'
+      }
+      onClick={() => focusField()}
+    >
+      <input
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={
+          focused
+            ? 'w-full focus:outline-none bg-gray-100 group-hover:bg-gray-200'
+            : 'w-full focus:outline-none group-hover:bg-gray-200'
+        }
+        ref={inputRef}
+        type="text"
+      />
+      {!focused && (
+        <div className="justify-center items-center flex">
+          <GoSearch className="cursor-text w-6 h-6 text-green-500" onClick={() => focusField()} />
+        </div>
+      )}
     </div>
   );
 };
