@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-import { GoSearch } from "react-icons/go";
+import { IoSearchOutline } from "react-icons/io5";
 import { useRef } from 'react';
 
 const Search = props => {
@@ -19,8 +19,8 @@ const Search = props => {
     <div
       className={
         focused
-          ? 'p-2 group rounded-lg border-green-500 cursor-text border flex bg-gray-100 group-hover:bg-gray-200'
-          : 'p-2 group rounded-lg border-green-500 cursor-text border flex group-hover:bg-gray-200'
+          ? 'p-2 group rounded-lg border-blue-500 cursor-text border flex bg-gray-100 group-hover:bg-gray-200'
+          : 'p-2 group rounded-lg border-blue-500 cursor-text border  flex group-hover:bg-gray-200'
       }
       onClick={() => focusField()}
     >
@@ -37,7 +37,7 @@ const Search = props => {
       />
       {!focused && (
         <div className="justify-center items-center flex">
-          <GoSearch className="cursor-text w-6 h-6 text-green-500" onClick={() => focusField()} />
+          <IoSearchOutline className="cursor-text w-6 h-6 text-blue-500" onClick={() => focusField()} />
         </div>
       )}
     </div>
