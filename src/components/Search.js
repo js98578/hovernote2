@@ -19,8 +19,8 @@ const Search = props => {
     <div
       className={
         focused
-          ? 'p-2 group rounded-lg border-blue-500 cursor-text border flex bg-gray-100 group-hover:bg-gray-200'
-          : 'p-2 group rounded-lg border-blue-500 cursor-text border  flex group-hover:bg-gray-200'
+          ? 'p-2 group rounded-lg border-teal-300 cursor-text border flex bg-gray-100 group-hover:bg-gray-200'
+          : 'p-2 group rounded-lg border-teal-300 cursor-text border  flex group-hover:bg-gray-200'
       }
       onClick={() => focusField()}
     >
@@ -37,7 +37,7 @@ const Search = props => {
       />
       {!focused && (
         <div className="justify-center items-center flex">
-          <IoSearchOutline className="cursor-text w-6 h-6 text-blue-500" onClick={() => focusField()} />
+          <IoSearchOutline className="cursor-text w-6 h-6 text-teal-300" onClick={() => focusField()} />
         </div>
       )}
     </div>
