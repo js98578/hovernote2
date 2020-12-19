@@ -14,16 +14,16 @@ const Left = props => {
   };
 
   return (
-    <div className="border-r-1 border-gray-800 justify-between flex flex-col p-4 shadow-lg">
+    <div className="border-r-1 border-gray-800 justify-between flex flex-col py-4 shadow-lg">
       <Search />
       <PrimaryMenu />
       <NoteStackList />
       <div
-        className="flex justify-center items-center"
+        className="flex justify-center items-center cursor-pointer hover:bg-gray-200"
         onClick={handleLogout}
       >
         <div className="">
-          <h1 className="px-4 font-sans font-light text-3xl text-teal-300 cursor-pointer rounded-lg hover:bg-gray-200">Logout</h1>
+          <h1 className="font-sans font-light text-3xl text-teal-500">Logout</h1>
         </div>
       </div>
     </div>

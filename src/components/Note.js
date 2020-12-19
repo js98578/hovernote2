@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
 import { TextField } from '@material-ui/core';
 
-const Note = () => {
+const Note =  () => {
   const { newNote, noteTitle, setNoteTitle, noteContent, setNoteContent } = useContext(
     NotesContext
   );
