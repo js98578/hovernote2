@@ -28,11 +28,12 @@ export const AuthProvider = props => {
   }, []);
 
   useEffect(() => {
-    if (getUserInfoFromLocalStorage()) {
-      authentication(true, getUserInfoFromLocalStorage());
-    } else {
-      authentication(false, getUserInfoFromLocalStorage());
+    const userInfoLocalStorage = getUserInfoFromLocalStorage();
+    if (userInfoLocalStorage) {
+      authentication(true, userInfoLocalStorage);
+      return;
     }
+    authentication(false, userInfoLocalStorage);
   }, [authentication, getUserInfoFromLocalStorage]);
 
   return (

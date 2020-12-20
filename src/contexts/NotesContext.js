@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { getAllNotes } from '../services/notesService';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { getAllNotes, getNotesByNoteStack, saveNote } from '../services/notesService';
 import { AuthContext } from './AuthContext';
 
 export const NotesContext = React.createContext();
@@ -14,6 +14,7 @@ export const NotesProvider = props => {
     new: true
   });
   const [noteList, setNoteList] = useState([]);
+  const [activeNoteStack, setActiveNoteStack] = useState('AN');
   const { userInfo } = useContext(AuthContext);
 
   const setNoteTitle = title => {
@@ -34,17 +35,32 @@ export const NotesProvider = props => {
     });
   };
 
-  useEffect(() => {
-    const getNotes = async () => {
-      try {
-        const noteListResponse = await getAllNotes(userInfo.id);
-        setNoteList(noteListResponse);
-      } catch (err) {
-        console.log(err);
+  const getNotes = useCallback(async () => {
+    try {
+      let noteListResponse = []
+      if (activeNoteStack === 'AN') {
+        noteListResponse = await getAllNotes(userInfo.username);
+      } else {
+        noteListResponse = await getNotesByNoteStack(activeNoteStack);
       }
-    };
+      setNoteList(noteListResponse);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [activeNoteStack, userInfo.username]);
+
+  useEffect(() => {
     getNotes();
-  }, [userInfo]);
+  }, [userInfo, activeNoteStack, getNotes]);
+
+  const sendNewNote = async () => {
+    try {
+      await saveNote(note);
+      getNotes();
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <NotesContext.Provider
@@ -55,6 +71,7 @@ export const NotesProvider = props => {
         setNoteList,
         setNoteTitle,
         setNoteContent,
+        sendNewNote,
       }}
     >
       {children}

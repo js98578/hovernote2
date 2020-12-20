@@ -6,7 +6,7 @@ const NoteList = () => {
 
   const notes = useMemo(() => {
     return noteList instanceof Array && noteList.map(note => (
-      <div>
+      <div className="p-4">
         <h1>{note.title}</h1>
         <p>{note.content}</p>
       </div>

@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
 import { TextField } from '@material-ui/core';
 
-const Note =  () => {
-  const { newNote, noteTitle, setNoteTitle, noteContent, setNoteContent } = useContext(
+const NoteEdit =  () => {
+  const { newNote, noteTitle, setNoteTitle, noteContent, setNoteContent, sendNewNote } = useContext(
     NotesContext
   );
 
@@ -34,8 +34,9 @@ const Note =  () => {
           variant="outlined"
         />
       </div>
+      <div onClick={() => sendNewNote()}>SEND</div>
     </div>
   );
 };
 
-export default Note;
+export default NoteEdit;

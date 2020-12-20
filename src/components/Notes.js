@@ -4,7 +4,7 @@ import { Transition } from 'react-transition-group';
 import Left from './Left';
 import { NotesProvider } from '../contexts/NotesContext';
 import NoteList from './NoteList';
-import Note from './Note';
+import NoteEdit from './NoteEdit';
 
 export const Notes = () => {
 
@@ -42,13 +42,13 @@ export const Notes = () => {
                 <Left />
               </Space.Left>
               <Space.Fill scrollable={true}>
-                <div className="border-l border-gray-200 h-screen">
+                <div className="border-l border-gray-200 bg-gray-200 h-screen">
                   <NoteList />
                 </div>
               </Space.Fill>
               <Space.Right size="50%">
                 <div className="border-l border-gray-200 h-screen">
-                  <Note></Note>
+                  <NoteEdit></NoteEdit>
                 </div>
               </Space.Right>
             </Space.ViewPort>
