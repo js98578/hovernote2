@@ -15,6 +15,7 @@ export const NotesProvider = props => {
   });
   const [noteList, setNoteList] = useState([]);
   const [activeNoteStack, setActiveNoteStack] = useState('AN');
+  const [noteStackLoading, setNoteStackLoading] = useState(false);
   const { userInfo } = useContext(AuthContext);
 
   const setNoteTitle = title => {
@@ -37,6 +38,7 @@ export const NotesProvider = props => {
 
   const getNotes = useCallback(async () => {
     try {
+      setNoteStackLoading(true);
       let noteListResponse = []
       if (activeNoteStack === 'AN') {
         noteListResponse = await getAllNotes(userInfo.username);
@@ -47,6 +49,7 @@ export const NotesProvider = props => {
     } catch (err) {
       console.log(err);
     }
+    setNoteStackLoading(false);
   }, [activeNoteStack, userInfo.username]);
 
   useEffect(() => {
@@ -72,6 +75,10 @@ export const NotesProvider = props => {
         setNoteTitle,
         setNoteContent,
         sendNewNote,
+        activeNoteStack,
+        setActiveNoteStack,
+        setNoteStackLoading,
+        noteStackLoading,
       }}
     >
       {children}

@@ -7,25 +7,24 @@ import NoteList from './NoteList';
 import NoteEdit from './NoteEdit';
 
 export const Notes = () => {
-
   const [inProp, setInProp] = useState(false);
 
   const duration = 300;
 
   const defaultStyle = {
     transition: `opacity ${duration}ms ease-in-out`,
-    opacity: 0,
-  }
+    opacity: 0
+  };
 
   const transitionStyles = {
     entering: { opacity: 1 },
     entered: { opacity: 1 },
     exiting: { opacity: 0 },
-    exited: { opacity: 0 },
+    exited: { opacity: 0 }
   };
 
   useEffect(() => {
-    setInProp(true)
+    setInProp(true);
   }, []);
 
   return (
@@ -36,22 +35,19 @@ export const Notes = () => {
             style={{
               ...defaultStyle,
               ...transitionStyles[state]
-            }}>
-            <Space.ViewPort>
-              <Space.Left size={250}>
+            }}
+          >
+            <div className="flex flex-row">
+              <div className="border-r-1 border-gray-800 flex flex-col py-4 shadow-xl h-screen w-1/6">
                 <Left />
-              </Space.Left>
-              <Space.Fill scrollable={true}>
-                <div className="border-l border-gray-200 bg-gray-200 h-screen">
-                  <NoteList />
-                </div>
-              </Space.Fill>
-              <Space.Right size="50%">
-                <div className="border-l border-gray-200 h-screen">
-                  <NoteEdit></NoteEdit>
-                </div>
-              </Space.Right>
-            </Space.ViewPort>
+              </div>
+              <div className="overflow-y-scroll h-screen w-2/6">
+                <NoteList />
+              </div>
+              <div className="border-l border-gray-200 bg-gray-100 h-screen w-3/6">
+                <NoteEdit></NoteEdit>
+              </div>
+            </div>
           </div>
         )}
       </Transition>

@@ -14,7 +14,7 @@ const Left = props => {
   };
 
   return (
-    <div className="border-r-1 border-gray-800 justify-between flex flex-col py-4 shadow-lg">
+    <>
       <Search />
       <PrimaryMenu />
       <NoteStackList />
@@ -26,7 +26,7 @@ const Left = props => {
           <h1 className="font-sans font-light text-3xl text-teal-500">Logout</h1>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
