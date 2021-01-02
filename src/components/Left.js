@@ -15,8 +15,10 @@ const Left = props => {
 
   return (
     <>
-      <Search />
-      <PrimaryMenu />
+      <div className="">
+        <Search />
+        <PrimaryMenu />
+      </div>
       <NoteStackList />
       <div
         className="flex justify-center items-center cursor-pointer hover:bg-gray-200"

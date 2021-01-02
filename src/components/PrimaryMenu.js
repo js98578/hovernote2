@@ -4,9 +4,9 @@ import { NotesContext } from '../contexts/NotesContext';
 const PrimaryMenu = () => {
   const { setNoteNew, setActiveNoteStack } = useContext(NotesContext);
   return (
-    <div className="flex text-gray-700 my-4 font-sans font-light text-3xl flex-col">
+    <div className="flex text-gray-700 my-10 font-sans font-light text-3xl flex-col">
       <div className="px-8 cursor-pointer hover:bg-gray-200">New note</div>
-      <div className="px-8 cursor-pointer hover:bg-gray-200" onClick={() => setActiveNoteStack('AN')}>All notes</div>
+      <div className="px-8 cursor-pointer hover:bg-gray-200 mt-3" onClick={() => setActiveNoteStack('AN')}>All notes</div>
     </div>
   );
 };

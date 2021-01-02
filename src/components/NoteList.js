@@ -3,21 +3,26 @@ import { NotesContext } from '../contexts/NotesContext';
 
 const NoteList = () => {
   const { noteList, noteStackLoading } = useContext(NotesContext);
-  console.log(noteList)
+  console.log(noteList);
   const notes = useMemo(() => {
     return (
       noteList instanceof Array &&
-      noteList.map(note => (
-        <div className="p-4 text-gray-700 border-b border-gray-200 h-40 break-all">
-          <div className="flex flex-col">
-          <div>
-            <div className="font-sans text-1xl">{note.title}</div>
-            <div className="font-sans font-light text-xs">{note.lastModifiedDate}</div>
+      noteList.map(note => {
+/*         if (note.title.length > 60) {
+          note.title = note.title.slice(0, 60)+"...";
+        } */
+        return (
+          <div className="p-4 text-gray-700 border-b border-gray-200 break-all h-40">
+            <div className="flex flex-col">
+              <div className="font-sans text-1xl overflow-hidden truncate">{note.title}</div>
+              <div className="font-sans font-light text-xs">{note.lastModifiedDate}</div>
+              <div className="font-sans text-xs h-16 overflow-hidden overflow-ellipsis">
+                {note.content}
+              </div>
+            </div>
           </div>
-          <div className="font-sans text-xs">{note.content}</div>
-          </div>
-        </div>
-      ))
+        );
+      })
     );
   }, [noteList]);
 

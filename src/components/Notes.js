@@ -38,7 +38,7 @@ export const Notes = () => {
             }}
           >
             <div className="flex flex-row">
-              <div className="border-r-1 border-gray-800 flex flex-col py-4 shadow-xl h-screen w-1/6">
+              <div className="border-r-1 border-gray-800 flex flex-col justify-between py-4 shadow-xl h-screen w-1/6">
                 <Left />
               </div>
               <div className="overflow-y-scroll h-screen w-2/6">
