@@ -8,7 +8,7 @@ const NoteEdit =  () => {
   );
 
   return (
-    <div>
+    <>
       {newNote ? (
         <h1 className="mb-4 justify-center text-4xl text-gray-400">NEW</h1>
       ) : (
@@ -35,7 +35,7 @@ const NoteEdit =  () => {
         />
       </div>
       <div onClick={() => sendNewNote()}>SEND</div>
-    </div>
+    </>
   );
 };
 

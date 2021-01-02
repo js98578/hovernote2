@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-import { IoSearchOutline } from "react-icons/io5";
+import { IoSearchOutline } from 'react-icons/io5';
 import { useRef } from 'react';
 
 const Search = props => {
@@ -13,7 +13,7 @@ const Search = props => {
 
   const focusField = () => {
     inputRef.current.focus();
-  }
+  };
 
   return (
     <div
@@ -35,9 +35,14 @@ const Search = props => {
         ref={inputRef}
         type="text"
       />
-      {!focused && (
+      {focused ? (
+        <div className="cursor-text w-6 h-6" onClick={() => focusField()} />
+      ) : (
         <div className="justify-center items-center flex">
-          <IoSearchOutline className="cursor-text w-6 h-6 text-teal-500" onClick={() => focusField()} />
+          <IoSearchOutline
+            className="cursor-text w-6 h-6 text-teal-500"
+            onClick={() => focusField()}
+          />
         </div>
       )}
     </div>
