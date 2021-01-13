@@ -14,7 +14,8 @@ export const NotesProvider = props => {
     new: true
   });
   const [noteList, setNoteList] = useState([]);
-  const [activeNoteStack, setActiveNoteStack] = useState('AN');
+  const [activeNoteStack, setActiveNoteStack] = useState('');
+  const [isAllNotes, setIsAllNotes] = useState(true);
   const [noteStackLoading, setNoteStackLoading] = useState(false);
   const { userInfo } = useContext(AuthContext);
 
@@ -40,7 +41,7 @@ export const NotesProvider = props => {
     try {
       setNoteStackLoading(true);
       let noteListResponse = []
-      if (activeNoteStack === 'AN') {
+      if (isAllNotes) {
         noteListResponse = await getAllNotes(userInfo.username);
       } else {
         noteListResponse = await getNotesByNoteStack(activeNoteStack);

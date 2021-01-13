@@ -8,7 +8,7 @@ const SignUpForm = props => {
   const { formValues, handleChange, handleSignUp, switchMode, fadeIn } = props;
 
   return (
-    <Fade in={fadeIn} timeout={1000}>
+    <Fade in={fadeIn} timeout={300}>
       <Paper className="flex flex-col p-8 min-w-0" elevation={5}>
         <h1 className="mb-4 justify-center text-4xl text-gray-400">SIGN UP</h1>
         <TextField

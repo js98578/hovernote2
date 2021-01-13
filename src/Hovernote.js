@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import Login from './components/Login';
 import { Notes } from './components/Notes';
 import { AuthContext } from './contexts/AuthContext';
+import LoginContainer from './containers/LoginContainer';
 
 export const Hovernote = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -10,12 +11,12 @@ export const Hovernote = () => {
   return (
     <Switch>
       <Route exact path="/">
-        {!isAuthenticated ? <Login /> : <Redirect to="/notes/" />}
+        {!isAuthenticated ? <LoginContainer /> : <Redirect to="/notes/" />}
       </Route>
       <Route path="/notes/">{!isAuthenticated ? <Redirect to="/login/" /> : <Notes />}</Route>
       <Route
         path="/login/"
-        render={() => (!isAuthenticated ? <Login /> : <Redirect to="/notes/" />)}
+        render={() => (!isAuthenticated ? <LoginContainer /> : <Redirect to="/notes/" />)}
       />
     </Switch>
   );
