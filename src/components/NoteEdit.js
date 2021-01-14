@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
-import { TextField } from '@material-ui/core';
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
+import { ContentEdit } from './ContentEdit';
 
-const NoteEdit =  () => {
+const NoteEdit = () => {
   const { newNote, noteTitle, setNoteTitle, noteContent, setNoteContent, sendNewNote } = useContext(
     NotesContext
   );
@@ -15,24 +16,12 @@ const NoteEdit =  () => {
         <h1 className="mb-4 justify-center text-4xl text-gray-400">EDIT</h1>
       )}
       <div>
-        <TextField
-          id="outlined-email-login"
-          label="Title"
+        <input
           className="min-w-300"
           value={noteTitle}
           onChange={e => setNoteTitle(e.target.value)}
-          margin="normal"
-          variant="outlined"
         />
-        <TextField
-          id="outlined-email-login"
-          label="Content"
-          className="min-w-300"
-          value={noteContent}
-          onChange={e => setNoteContent(e.target.value)}
-          margin="normal"
-          variant="outlined"
-        />
+        <ContentEdit></ContentEdit>
       </div>
       <div onClick={() => sendNewNote()}>SEND</div>
     </>
