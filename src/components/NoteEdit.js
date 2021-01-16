@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
 import { ContentEdit } from './ContentEdit';
 
 const NoteEdit = () => {

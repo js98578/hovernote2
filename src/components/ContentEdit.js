@@ -1,6 +1,8 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
 import { BLOCK_TYPES, INLINE_STYLES } from '../lib/draftjs';
+import { codeStyleMap } from '../styles/draftjs'
+import '../styles/DraftJsStyle.css'
 
 export const ContentEdit = props => {
   const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty());
@@ -55,18 +57,17 @@ export const ContentEdit = props => {
 
   return (
     <div className="RichEditor-root">
-      <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
-      <InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle} />
-      <div className={className} onClick={this.focus}>
+      <BlockStyleControls editorState={editorState} onToggle={toggleBlockType} />
+      <InlineStyleControls editorState={editorState} onToggle={toggleInlineStyle} />
+      <div className={className} onClick={focusEditor}>
         <Editor
           blockStyleFn={getBlockStyle}
-          customStyleMap={styleMap}
+          customStyleMap={codeStyleMap}
           editorState={editorState}
-          handleKeyCommand={this.handleKeyCommand}
-          keyBindingFn={this.mapKeyToEditorCommand}
-          onChange={this.onChange}
-          placeholder="Tell a story..."
-          ref="editor"
+          handleKeyCommand={handleKeyCommand}
+          keyBindingFn={mapKeyToEditorCommand}
+          onChange={onChange}
+          ref={editor}
           spellCheck={true}
         />
       </div>
@@ -121,65 +122,23 @@ const StyleButton = props => {
     props.onToggle(props.style);
   };
 
+  let className = 'RichEditor-styleButton';
+  if (props.active) {
+    className += ' RichEditor-activeButton';
+  }
+
   return (
-    <span style={props.active ? styles.activeButton : styles.styleButton} onMouseDown={onToggle}>
+    <span className={className} onMouseDown={onToggle}>
       {props.label}
     </span>
   );
 };
 
-const getBlockStyle = (block) => {
+const getBlockStyle = block => {
   switch (block.getType()) {
-    case 'blockquote': return 'RichEditor-blockquote';
-    default: return null;
-  }
-}
-
-const styleMap = {
-  CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2
-  }
-};
-
-const styles = {
-  root: {
-    background: '#fff',
-    border: '1px solid #ddd',
-    fontFamily: 'Georgia, serif',
-    fontSize: 14,
-    padding: 15
-  },
-  editor: {
-    borderTop: '1px solid #ddd',
-    cursor: 'text',
-    fontSize: 16,
-    marginTop: 10
-  },
-  blockquote: {
-    borderLeft: '5px solid #eee',
-    color: '#666',
-    fontFamily: 'Hoefler Text, Georgia, serif',
-    fontStyle: 'italic',
-    margin: '16px 0',
-    padding: '10px 20px'
-  },
-  controls: {
-    fontFamily: 'Helvetica, sans-serif',
-    fontSize: 14,
-    marginBottom: 5,
-    userSelect: 'none'
-  },
-  styleButton: {
-    color: '#999',
-    cursor: 'pointer',
-    marginRight: 16,
-    padding: '2px 0',
-    display: 'inline-block'
-  },
-  activeButton: {
-    color: '#5890ff'
+    case 'blockquote':
+      return 'RichEditor-blockquote';
+    default:
+      return null;
   }
 };
