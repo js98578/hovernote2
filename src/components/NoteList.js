@@ -10,7 +10,7 @@ const NoteList = () => {
       noteList.map(note => {
 /*         if (note.title.length > 60) {
           note.title = note.title.slice(0, 60)+"...";
-        } */
+        } */  
         return (
           <div className="p-4 text-gray-700 border-b border-gray-200 break-all h-40">
             <div className="flex flex-col">

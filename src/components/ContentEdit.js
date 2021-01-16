@@ -1,5 +1,6 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
+import { BLOCK_TYPES, INLINE_STYLES } from '../lib/draftjs';
 
 export const ContentEdit = props => {
   const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty());
@@ -39,15 +40,35 @@ export const ContentEdit = props => {
     onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
   };
 
+  let className = 'RichEditor-editor';
+  var contentState = editorState.getCurrentContent();
+  if (!contentState.hasText()) {
+    if (
+      contentState
+        .getBlockMap()
+        .first()
+        .getType() !== 'unstyled'
+    ) {
+      className += ' RichEditor-hidePlaceholder';
+    }
+  }
+
   return (
     <div className="RichEditor-root">
-      <BlockStyleControls editorState={editorState} onToggle={toggleBlockType} />
-      <InlineStyleControls editorState={editorState} onToggle={toggleInlineStyle} />
-      <div
-        style={{ border: '1px solid black', minHeight: '6em', cursor: 'text' }}
-        onClick={focusEditor}
-      >
-        <Editor ref={editor} editorState={editorState} onChange={setEditorState} />
+      <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
+      <InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle} />
+      <div className={className} onClick={this.focus}>
+        <Editor
+          blockStyleFn={getBlockStyle}
+          customStyleMap={styleMap}
+          editorState={editorState}
+          handleKeyCommand={this.handleKeyCommand}
+          keyBindingFn={this.mapKeyToEditorCommand}
+          onChange={this.onChange}
+          placeholder="Tell a story..."
+          ref="editor"
+          spellCheck={true}
+        />
       </div>
     </div>
   );
@@ -101,28 +122,64 @@ const StyleButton = props => {
   };
 
   return (
-    <span className="" onMouseDown={onToggle}>
+    <span style={props.active ? styles.activeButton : styles.styleButton} onMouseDown={onToggle}>
       {props.label}
     </span>
   );
 };
 
-const INLINE_STYLES = [
-  { label: 'Bold', style: 'BOLD' },
-  { label: 'Italic', style: 'ITALIC' },
-  { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' }
-];
+const getBlockStyle = (block) => {
+  switch (block.getType()) {
+    case 'blockquote': return 'RichEditor-blockquote';
+    default: return null;
+  }
+}
 
-const BLOCK_TYPES = [
-  { label: 'H1', style: 'header-one' },
-  { label: 'H2', style: 'header-two' },
-  { label: 'H3', style: 'header-three' },
-  { label: 'H4', style: 'header-four' },
-  { label: 'H5', style: 'header-five' },
-  { label: 'H6', style: 'header-six' },
-  { label: 'Blockquote', style: 'blockquote' },
-  { label: 'UL', style: 'unordered-list-item' },
-  { label: 'OL', style: 'ordered-list-item' },
-  { label: 'Code Block', style: 'code-block' }
-];
+const styleMap = {
+  CODE: {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontSize: 16,
+    padding: 2
+  }
+};
+
+const styles = {
+  root: {
+    background: '#fff',
+    border: '1px solid #ddd',
+    fontFamily: 'Georgia, serif',
+    fontSize: 14,
+    padding: 15
+  },
+  editor: {
+    borderTop: '1px solid #ddd',
+    cursor: 'text',
+    fontSize: 16,
+    marginTop: 10
+  },
+  blockquote: {
+    borderLeft: '5px solid #eee',
+    color: '#666',
+    fontFamily: 'Hoefler Text, Georgia, serif',
+    fontStyle: 'italic',
+    margin: '16px 0',
+    padding: '10px 20px'
+  },
+  controls: {
+    fontFamily: 'Helvetica, sans-serif',
+    fontSize: 14,
+    marginBottom: 5,
+    userSelect: 'none'
+  },
+  styleButton: {
+    color: '#999',
+    cursor: 'pointer',
+    marginRight: 16,
+    padding: '2px 0',
+    display: 'inline-block'
+  },
+  activeButton: {
+    color: '#5890ff'
+  }
+};
